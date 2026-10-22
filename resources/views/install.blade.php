@@ -6,7 +6,7 @@
     <meta name="robots" content="noindex, nofollow">
     <title>Install · Dr. FF @ 85</title>
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500&family=Inter:wght@400;500;600&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap">
     <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
     <script src="{{ asset('js/admin.js') }}" defer></script>
 </head>

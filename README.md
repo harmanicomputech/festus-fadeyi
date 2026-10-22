@@ -6,9 +6,9 @@ Hosted by Caritas Communications Limited.
 
 A Laravel 13 application with:
 
-- **Public landing page.** The eleven sections from the brief, in order: hero, welcome, celebrant, book, give, programme, speakers, venue, RSVP, gallery, footer.
+- **Public landing page.** One animated scrolling page: hero, welcome, celebrant, book, give, programme, venue, RSVP, gallery (shown once photographs are added) and footer. Motion uses GSAP, ScrollTrigger and Lenis (bundled in `public/vendor`) and switches off for visitors who prefer reduced motion.
 - **RSVP.** Validation, duplicate handling, a 150-seat capacity with automatic waitlist and promotion, closure on 4 December, optional invite-only mode, secure update/cancel links, and a unique QR code for each confirmed guest.
-- **Donations.** Paystack checkout verified server-side through the callback and a signed webhook, so a browser redirect alone never marks a gift as paid. Pledges are tracked separately and are never counted as money received. Offline gifts (bank transfer, cash) can be recorded, receipts are emailed, and donors are acknowledged publicly only with their consent.
+- **Donations.** Paystack checkout verified server-side through the callback and a signed webhook, so a browser redirect alone never marks a gift as paid. Giving is online and by bank transfer; admins record bank transfers once seen in the account. Optional pledges (off by default) are never counted as money received. Transfers can be recorded, receipts are emailed, and donors are acknowledged publicly only with their consent.
 - **Admin dashboard.** Guests by status, search, CSV/Excel exports, invitations, donations by donor, method and date, goodwill messages, and the final report.
 - **Check-in desk.** Camera QR scanning, manual entry and name search, with repeat scans flagged rather than counted. There is a separate `checkin` role for welcome-desk staff.
 - **Seven branded emails.** All sent from `Invitation@Dr.FFat85.com` as *Dr. FF@85 Planning Committee*, with scheduled reminders that never double-send.
@@ -40,9 +40,9 @@ DB_CONNECTION=pgsql DB_DATABASE=ff85_test DB_USERNAME=... DB_PASSWORD=... php ar
 
 | What | Where |
 |---|---|
-| All event details and **client-supplied content** (welcome note, author, synopsis, charity, programme, speakers, parking, gallery, email copy) | `config/event.php` |
+| All event details and **client-supplied content** (welcome note, author, synopsis, charity, programme, parking, gallery, email copy) | `config/event.php` |
 | Credentials and environment settings | `.env` (see `.env.example`) |
-| Images | `public/images/{celebrant,book,charity,speakers,gallery}` |
+| Images | `public/images/{celebrant,book,charity,gallery}` |
 | Landing page sections | `resources/views/landing/sections/*.blade.php` |
 | Email templates | `resources/views/emails/*.blade.php` |
 | Design system | `public/css/site.css` (public), `public/css/admin.css` (admin) |

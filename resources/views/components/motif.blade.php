@@ -1,2 +1,0 @@
-{{-- Eight-point lozenge star: a restrained nod to Yoruba/Adire geometry. --}}
-<svg {{ $attributes }} viewBox="0 0 64 64" fill="none" stroke="currentColor" aria-hidden="true"><path d="M32 4l8 20 20 8-20 8-8 20-8-20-20-8 20-8z"/><path d="M32 14l14 18-14 18-14-18z" opacity=".6"/><rect x="27" y="27" width="10" height="10" transform="rotate(45 32 32)" fill="currentColor" stroke="none" opacity=".8"/></svg>

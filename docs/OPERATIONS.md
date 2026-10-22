@@ -13,7 +13,7 @@ Create users with `php artisan ff85:create-admin <email> --role=admin|checkin`. 
 2. **Invite-only mode:** switch it on if the RSVP form must only accept invited guests.
 3. **Monitor:** the Overview shows accepted, maybe, declined, waitlisted, no-reply, seats used and donations. Guests can be filtered and exported to CSV/Excel at any time.
 4. **Waitlist:** when an accepted guest declines or reduces their party, freed seats go automatically to the earliest waitlisted guests who fit, and those guests are emailed. An admin can also confirm a guest manually from their guest page; this may exceed capacity, and the dashboard warns when it does.
-5. **Offline gifts:** record bank transfers once the funds are seen in the account (Admin → Donations → *Record an offline gift*). Pledges are listed separately and are **never** counted as received.
+5. **Bank transfers:** record each transfer once the funds are seen in the beneficiary account (Admin → Donations → *Record a bank transfer*), which also emails the receipt. Online gifts are recorded automatically once Paystack verifies them. (Pledges on the RSVP form are off by default; enable with `donations.pledges_enabled` in `config/event.php`.)
 
 ## Event day: welcome desk
 

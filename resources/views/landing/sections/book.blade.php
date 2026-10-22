@@ -1,36 +1,27 @@
 @php($book = config('event.book'))
-<section class="section section--forest book on-dark" id="book" aria-labelledby="book-title">
-    <div class="pattern pattern--edge" aria-hidden="true"></div>
+<section class="section section--forest on-dark" id="book" aria-labelledby="book-title">
+    <div class="pattern pattern--fade" aria-hidden="true"></div>
     <div class="container book__grid">
-        <div class="book__cover-wrap reveal">
-            <x-book-cover />
+        <div class="book__stage" data-reveal>
+            <div data-book-tilt><x-book-cover /></div>
+            <div class="book__shadow" aria-hidden="true"></div>
         </div>
 
         <div>
-            <span class="eyebrow reveal">The Book</span>
-            <h2 class="book__title reveal" id="book-title">{{ config('event.book_title') }}</h2>
+            <span class="kicker" data-reveal>The Book</span>
+            <h2 class="book__title" id="book-title" data-split>Forged in <b>His Fire</b></h2>
 
-            @if ($book['author'])
-                <p class="book__author reveal">By {{ $book['author'] }}</p>
-            @else
-                <div class="reveal" style="margin-bottom:1.8rem"><x-placeholder inline label="Author’s name to be confirmed" /></div>
+            @if ($book['author'])<p class="book__author" data-reveal>By {{ $book['author'] }}</p>@endif
+            @if ($book['synopsis'])<p class="book__synopsis" data-reveal>{{ $book['synopsis'] }}</p>@endif
+            @if (! $book['author'] || ! $book['synopsis'])
+                <div class="book__soon" data-reveal>
+                    @unless ($book['author'])<x-placeholder label="Author" />@endunless
+                    @unless ($book['synopsis'])<x-placeholder label="Synopsis" />@endunless
+                </div>
             @endif
 
-            @if ($book['synopsis'])
-                <p class="book__synopsis reveal">{{ $book['synopsis'] }}</p>
-            @else
-                <x-placeholder class="reveal" label="Synopsis">A two-to-three-line synopsis will appear here once approved.</x-placeholder>
-            @endif
-
-            <p class="book__note reveal">
-                <strong>A gift that gives onward.</strong>
-                Donations made at the presentation of <em>{{ config('event.book_title') }}</em> go in full to {{ \App\Support\EventInfo::charityLabel() }}.
-                @if ($book['purchase_supports_charity'])
-                    Proceeds from sales of the book will also support the charity.
-                @endif
-            </p>
-
-            <div class="reveal"><a class="btn" href="#give">Donate <x-arrow /></a></div>
+            <p class="book__note" data-reveal>Donations at the book presentation go to {{ \App\Support\EventInfo::charityLabel() }}.@if ($book['purchase_supports_charity']) Book sales also support the charity.@endif</p>
+            <div data-reveal><a class="btn" href="#give" data-magnetic>Donate <x-arrow /></a></div>
         </div>
     </div>
 </section>

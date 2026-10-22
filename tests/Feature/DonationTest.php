@@ -149,6 +149,7 @@ class DonationTest extends TestCase
     public function test_paying_a_pledge_fulfils_it(): void
     {
         $this->configure();
+        config(['event.donations.pledges_enabled' => true]);
         $this->post('/rsvp', $this->rsvpPayload(['pledge_amount' => '50000']));
         $pledge = Pledge::query()->firstOrFail();
         $this->get(route('donate.show', ['pledge' => $pledge->pay_token]))->assertSee('Redeeming the pledge');

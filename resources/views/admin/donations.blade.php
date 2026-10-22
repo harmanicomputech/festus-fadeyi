@@ -7,7 +7,7 @@
         <div class="actions">
             <a class="btn btn--ghost" href="{{ route('admin.donations.export', ['csv'] + array_filter($filters)) }}">CSV</a>
             <a class="btn btn--ghost" href="{{ route('admin.donations.export', ['xlsx'] + array_filter($filters)) }}">Excel</a>
-            <a class="btn btn--ghost" href="{{ route('admin.donations.venue-qr') }}">Venue donation QR (PNG)</a>
+            <a class="btn btn--ghost" href="{{ route('admin.donations.venue-qr') }}">Donation page QR (PNG)</a>
         </div>
     </div>
 
@@ -66,12 +66,12 @@
 
     <div class="grid grid--2" style="margin-top:28px">
         <section class="panel">
-            <h2>Record an offline gift</h2>
-            <p class="small muted">For bank transfers or cash/cheques confirmed against the beneficiary account. Only record funds you have actually seen received.</p>
+            <h2>Record a bank transfer</h2>
+            <p class="small muted">Record a transfer once it appears in the beneficiary account statement.</p>
             <form method="POST" action="{{ route('admin.donations.store') }}" class="form-grid">
                 @csrf
                 <div class="field"><label for="m-amount">Amount (₦)</label><input class="input" id="m-amount" name="amount" inputmode="decimal" required value="{{ old('amount') }}"></div>
-                <div class="field"><label for="m-method">Method</label><select class="select" id="m-method" name="method">@foreach (['bank_transfer', 'cash', 'other'] as $k)<option value="{{ $k }}" @selected(old('method') === $k)>{{ $methods[$k] }}</option>@endforeach</select></div>
+                <input type="hidden" name="method" value="bank_transfer">
                 <div class="field"><label for="m-paid">Date received</label><input class="input" id="m-paid" name="paid_at" type="datetime-local" required value="{{ old('paid_at') }}"></div>
                 <div class="field"><label for="m-ref">Bank reference <span class="muted">(optional)</span></label><input class="input" id="m-ref" name="reference" value="{{ old('reference') }}"></div>
                 <div class="field"><label for="m-name">Donor name</label><input class="input" id="m-name" name="donor_name" value="{{ old('donor_name') }}"></div>

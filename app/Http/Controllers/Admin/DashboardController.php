@@ -44,7 +44,6 @@ class DashboardController extends Controller
                 'Book author & synopsis' => filled(config('event.book.author')) && filled(config('event.book.synopsis')),
                 'Book cover' => filled(config('event.images.book_cover')),
                 'Programme timings' => collect(config('event.programme'))->every(fn ($i) => filled($i['time'])),
-                'Speakers & dignitaries' => count(config('event.speakers')) > 0,
                 'Parking & arrival notes' => filled(config('event.venue.parking_notes')) && filled(config('event.venue.arrival_notes')),
             ],
         ]);

@@ -1,2 +1,2 @@
-<p style="margin:0 0 6px;font-family:Inter,'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:10px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:#7D5F24;">{{ $eyebrow }}</p>
-<h1 class="h1" style="margin:0 0 22px;font-family:'Cormorant Garamond',Georgia,'Times New Roman',serif;font-size:34px;line-height:1.15;font-weight:500;color:#0B1730;">{!! $title !!}</h1>
+<p style="margin:0 0 6px;font-family:'Plus Jakarta Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:10px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:#7D5F24;">{{ $eyebrow }}</p>
+<h1 class="h1" style="margin:0 0 22px;font-family:'Plus Jakarta Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:30px;line-height:1.15;font-weight:300;letter-spacing:-0.5px;color:#0B1730;">{!! str_replace(['<em style="color:#7D5F24;">', '</em>'], ['<strong style="color:#A9863F;font-weight:700;">', '</strong>'], $title) !!}</h1>

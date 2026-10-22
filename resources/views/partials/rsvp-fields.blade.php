@@ -55,10 +55,10 @@
     <fieldset class="field choices col-6" @error('attendance') aria-describedby="attendance-error" @enderror>
         <legend>Will you attend?</legend>
         <div class="choices__row">
-            @foreach (['yes' => ['Yes', 'With pleasure'], 'maybe' => ['Maybe', 'Not yet sure'], 'no' => ['No', 'With regret']] as $value => [$label, $sub])
+            @foreach (['yes' => 'Yes', 'maybe' => 'Maybe', 'no' => 'No'] as $value => $label)
                 <label class="choice">
                     <input type="radio" name="attendance" value="{{ $value }}" required @checked($attendance === $value) data-attendance>
-                    <span>{{ $label }}<small>{{ $sub }}</small></span>
+                    <span>{{ $label }}</span>
                 </label>
             @endforeach
         </div>
@@ -72,7 +72,6 @@
                 <option value="{{ $n }}" @selected((int) $val('party_size', 1) === $n)>{{ $n === 1 ? 'Just me (1 seat)' : 'Me and '.($n - 1).' guest'.($n > 2 ? 's' : '').' ('.$n.' seats)' }}</option>
             @endfor
         </select>
-        <p class="hint">Each reply may reserve up to {{ \App\Support\EventInfo::maxPartySize() }} seats.</p>
         <x-field-error name="party_size" />
     </div>
 
@@ -82,21 +81,20 @@
         <x-field-error name="dietary_needs" />
     </div>
 
-    <p class="form-divider">For the celebrant</p>
-
-    <div class="field col-6">
-        <label for="pledge_amount">Donation pledge <span class="optional">optional — to be redeemed on or before the event</span></label>
-        <div class="input-prefix">
-            <span aria-hidden="true">₦</span>
-            <input class="input" id="pledge_amount" name="pledge_amount" type="text" inputmode="numeric" placeholder="e.g. 100,000" maxlength="14"
-                   value="{{ $pledgeAmount ? number_format($pledgeAmount) : '' }}" data-money {!! $err('pledge_amount') !!}>
+    @if (config('event.donations.pledges_enabled'))
+        <div class="field col-6">
+            <label for="pledge_amount">Donation pledge <span class="optional">optional</span></label>
+            <div class="input-prefix">
+                <span aria-hidden="true">₦</span>
+                <input class="input" id="pledge_amount" name="pledge_amount" type="text" inputmode="numeric" placeholder="e.g. 100,000" maxlength="14"
+                       value="{{ $pledgeAmount ? number_format($pledgeAmount) : '' }}" data-money {!! $err('pledge_amount') !!}>
+            </div>
+            <x-field-error name="pledge_amount" />
         </div>
-        <p class="hint">A pledge is a promise only. We will email you a link to complete it; nothing is charged now.</p>
-        <x-field-error name="pledge_amount" />
-    </div>
+    @endif
 
     <div class="field col-6">
-        <label for="message">Message to the celebrant <span class="optional">optional — shared with the family</span></label>
+        <label for="message">Message to the celebrant <span class="optional">optional</span></label>
         <textarea class="textarea" id="message" name="message" maxlength="1000" rows="3" {!! $err('message') !!}>{{ $val('message') }}</textarea>
         <x-field-error name="message" />
     </div>
@@ -108,10 +106,9 @@
 
     @unless ($rsvp)
         <div class="privacy-note">
-            <p><strong>Privacy notice.</strong> {{ config('event.host') }} collects these details only to manage your attendance at this event: confirmations, reminders, seating, catering, check-in and, if you choose, your pledge. They are stored securely, shared only with the planning committee and the celebrant’s family (your goodwill message), and kept only as long as needed for the event and its final reporting. You may ask to see, correct or delete your data at any time. <a class="link-gold" href="{{ route('privacy') }}" target="_blank">Full privacy notice</a>.</p>
             <label class="checkbox">
                 <input type="checkbox" name="privacy" value="1" required @checked(old('privacy')) @error('privacy') aria-invalid="true" aria-describedby="privacy-error" @enderror>
-                <span>I have read the privacy notice and agree to my details being used for this event.</span>
+                <span>My details may be used for this event only, as set out in the <a class="link-gold" href="{{ route('privacy') }}" target="_blank">privacy notice</a>.</span>
             </label>
             <x-field-error name="privacy" />
         </div>

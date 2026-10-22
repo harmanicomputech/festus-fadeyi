@@ -46,7 +46,7 @@ class DonationController extends Controller
         $request->merge(['amount' => preg_replace('/[^0-9.]/', '', (string) $request->input('amount'))]);
         $data = $request->validate([
             'amount' => ['required', 'numeric', 'min:1', 'max:'.config('event.donations.max_amount')],
-            'method' => ['required', Rule::in(['bank_transfer', 'cash', 'other'])],
+            'method' => ['required', Rule::in(['bank_transfer'])],
             'paid_at' => ['required', 'date', 'before_or_equal:now'],
             'reference' => ['nullable', 'string', 'max:64', 'unique:donations,reference'],
             'anonymous' => ['nullable', 'boolean'],

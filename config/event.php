@@ -130,6 +130,9 @@ return [
         'min_amount' => (int) (env('DONATION_MIN_NAIRA') ?: 1000),
         'max_amount' => (int) (env('DONATION_MAX_NAIRA') ?: 50000000),
         'suggested' => [25000, 50000, 100000, 250000, 500000, 1000000],
+        // Giving is online (Paystack) and bank transfer only. Set true to let
+        // guests also pledge an amount on the RSVP form.
+        'pledges_enabled' => false,
     ],
 
     // ---------------------------------------------------------------
@@ -147,20 +150,7 @@ return [
     ],
 
     // ---------------------------------------------------------------
-    // Section 7 — Speakers & dignitaries (CLIENT TO SUPPLY)
-    // Each: ['name' => '', 'title' => '', 'role' => '', 'photo' => '/images/speakers/x.jpg']
-    // While empty, role placeholders below are displayed.
-    // ---------------------------------------------------------------
-    'speakers' => [],
-    'speaker_placeholder_roles' => [
-        'Chairman of the Occasion',
-        'Keynote Speaker',
-        'Book Reviewer',
-        'Distinguished Guest',
-    ],
-
-    // ---------------------------------------------------------------
-    // Section 10 — Gallery
+    // Gallery — shown only once photographs are added
     // Each: ['src' => '/images/gallery/x.jpg', 'alt' => '', 'caption' => null, 'group' => 'archive'|'event']
     // ---------------------------------------------------------------
     'gallery' => [],

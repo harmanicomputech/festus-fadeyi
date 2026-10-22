@@ -1,28 +1,30 @@
 @php($venue = config('event.venue'))
-<section class="section section--ivory-2" id="venue" aria-labelledby="venue-title">
-    <div class="container venue__grid">
-        <div>
-            <span class="eyebrow reveal">Venue &amp; Directions</span>
-            <h2 class="venue__name reveal" id="venue-title">{{ $venue['name'] }}</h2>
-            <p class="venue__area reveal">{{ $venue['area'] }}</p>
-
-            <dl class="facts reveal">
-                <div><dt>Date</dt><dd>{{ config('event.date_label') }}</dd></div>
-                <div><dt>Time</dt><dd>{{ config('event.time_label') }} (Lagos time)</dd></div>
-                <div><dt>Address</dt><dd>{{ $venue['full'] }}</dd></div>
-                <div><dt>Dress code</dt><dd>{{ config('event.dress_code') }}</dd></div>
-                <div><dt>Parking</dt><dd>@if ($venue['parking_notes']){{ $venue['parking_notes'] }}@else<x-placeholder inline label="Parking information to be confirmed" />@endif</dd></div>
-                <div><dt>Arrival</dt><dd>@if ($venue['arrival_notes']){{ $venue['arrival_notes'] }}@else<x-placeholder inline label="Arrival notes to be confirmed" />@endif</dd></div>
-            </dl>
-
-            <div class="reveal" style="display:flex;flex-wrap:wrap;gap:.8rem;margin-top:2rem">
-                <a class="btn btn--outline-navy btn--sm" href="{{ $venue['map_link'] }}" target="_blank" rel="noopener">Open in Google Maps</a>
-                <x-calendar-menu class="btn btn--outline-navy btn--sm" />
-            </div>
+<section class="section venue" id="venue" aria-labelledby="venue-title">
+    <div class="container">
+        <div class="section-head">
+            <span class="kicker" data-reveal>Venue</span>
+            <h2 class="h2" id="venue-title" data-split>Sky Restaurant, <em>Eko Hotels</em></h2>
         </div>
+    </div>
 
-        <div class="map reveal">
-            <iframe src="{{ $venue['map_embed_url'] }}" title="Map showing {{ $venue['full'] }}" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+    <div class="venue__map" data-reveal>
+        <iframe src="{{ $venue['map_embed_url'] }}" title="Map showing {{ $venue['full'] }}" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+        <div class="venue__card on-dark">
+            <h3>{{ $venue['name'] }}</h3>
+            <p class="area">{{ $venue['area'] }}</p>
+            <dl class="facts">
+                <div><dt>When</dt><dd>{{ config('event.date_label') }}<br>{{ config('event.time_label') }}</dd></div>
+                <div><dt>Dress</dt><dd>{{ config('event.dress_code') }}</dd></div>
+                @if ($venue['parking_notes'])<div><dt>Parking</dt><dd>{{ $venue['parking_notes'] }}</dd></div>@endif
+                @if ($venue['arrival_notes'])<div><dt>Arrival</dt><dd>{{ $venue['arrival_notes'] }}</dd></div>@endif
+            </dl>
+            @if (! $venue['parking_notes'] || ! $venue['arrival_notes'])
+                <x-placeholder label="Parking and arrival notes" />
+            @endif
+            <div class="venue__actions">
+                <a class="btn btn--sm" href="{{ $venue['map_link'] }}" target="_blank" rel="noopener">Directions</a>
+                <x-calendar-menu class="btn btn--ghost btn--sm" up />
+            </div>
         </div>
     </div>
 </section>

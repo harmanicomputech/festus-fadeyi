@@ -18,18 +18,23 @@
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&display=swap">
     <link rel="stylesheet" href="{{ asset('css/site.css') }}?v={{ filemtime(public_path('css/site.css')) }}">
     @stack('head')
+    <script src="{{ asset('js/boot.js') }}?v={{ filemtime(public_path('js/boot.js')) }}"></script>
+    <script src="{{ asset('vendor/gsap.min.js') }}" defer></script>
+    <script src="{{ asset('vendor/ScrollTrigger.min.js') }}" defer></script>
+    <script src="{{ asset('vendor/lenis.min.js') }}" defer></script>
     <script src="{{ asset('js/site.js') }}?v={{ filemtime(public_path('js/site.js')) }}" defer></script>
 </head>
 <body class="{{ $bodyClass ?? '' }}">
     <a class="skip-link" href="#main">Skip to content</a>
+    <div class="progress" data-progress aria-hidden="true"></div>
 
     <header class="site-header {{ $home ? '' : 'is-solid' }}" data-header>
         <div class="container">
             <a class="brand" href="{{ $home ? '#top' : route('home') }}" aria-label="{{ config('event.title') }} — home">
-                <span class="brand__mark" aria-hidden="true"><span>85</span></span>
+                <span class="brand__mark" aria-hidden="true">85</span>
                 <span class="brand__text">Dr. Festus Fadeyi<small>at Eighty-Five</small></span>
             </a>
             <nav class="nav" aria-label="Primary">
@@ -39,7 +44,7 @@
                     <li><a href="{{ $anchor('give') }}" data-nav>Give</a></li>
                     <li><a href="{{ $anchor('programme') }}" data-nav>Programme</a></li>
                     <li><a href="{{ $anchor('venue') }}" data-nav>Venue</a></li>
-                    <li><a class="btn btn--sm" href="{{ $anchor('rsvp') }}">RSVP</a></li>
+                    <li><a class="btn btn--sm" href="{{ $anchor('rsvp') }}" data-magnetic>RSVP</a></li>
                 </ul>
             </nav>
             <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav" data-nav-toggle>
@@ -51,14 +56,12 @@
         <div class="pattern" aria-hidden="true"></div>
         <nav aria-label="Mobile">
             <ul>
-                <li><a href="{{ $anchor('welcome') }}">Welcome</a></li>
+                <li><a href="{{ $anchor('top') }}">Home</a></li>
                 <li><a href="{{ $anchor('celebrant') }}">The Celebrant</a></li>
                 <li><a href="{{ $anchor('book') }}">The Book</a></li>
                 <li><a href="{{ $anchor('give') }}">Give</a></li>
                 <li><a href="{{ $anchor('programme') }}">Programme</a></li>
-                <li><a href="{{ $anchor('speakers') }}">Speakers</a></li>
                 <li><a href="{{ $anchor('venue') }}">Venue</a></li>
-                <li><a href="{{ $anchor('gallery') }}">Gallery</a></li>
             </ul>
             <a class="btn btn--block" href="{{ $anchor('rsvp') }}">RSVP Now</a>
         </nav>

@@ -7,8 +7,9 @@
     @include('landing.sections.book')
     @include('landing.sections.give')
     @include('landing.sections.programme')
-    @include('landing.sections.speakers')
     @include('landing.sections.venue')
     @include('landing.sections.rsvp')
-    @include('landing.sections.gallery')
+    @if (count(config('event.gallery')))
+        @include('landing.sections.gallery')
+    @endif
 @endsection

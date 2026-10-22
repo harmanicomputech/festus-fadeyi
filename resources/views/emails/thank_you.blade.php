@@ -13,7 +13,7 @@
         @include('emails._button', ['href' => $event['email']['photos_url'], 'label' => 'View the photographs', 'variant' => 'navy'])
     @endif
     @if ($event['book']['purchase_info'])
-        <p style="margin:22px 0 8px;font-family:'Cormorant Garamond',Georgia,serif;font-size:22px;color:#0B1730;">Obtaining the book</p>
+        <p style="margin:22px 0 8px;font-family:'Plus Jakarta Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:22px;color:#0B1730;">Obtaining the book</p>
         <p style="margin:0 0 16px;">{{ $event['book']['purchase_info'] }}</p>
     @endif
     <p style="margin:22px 0 16px;">Giving remains open for those who wish to support {{ $charityLabel }}.</p>

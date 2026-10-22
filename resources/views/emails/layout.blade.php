@@ -1,11 +1,11 @@
 {{--
     Branded email layout: navy, gold, ivory. Table-based with inline styles
     for Gmail, Outlook and Apple Mail. Web fonts load where supported and
-    fall back to Georgia / Helvetica elsewhere.
+    fall back to Helvetica / Arial elsewhere.
 --}}
 @php
-    $serif = "'Cormorant Garamond', Georgia, 'Times New Roman', serif";
-    $sans = "Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif";
+    $serif = "'Plus Jakarta Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif";
+    $sans = $serif;
 @endphp
 <!DOCTYPE html>
 <html lang="en">
@@ -15,11 +15,10 @@
     <meta name="x-apple-disable-message-reformatting">
     <meta name="color-scheme" content="light only">
     <title>{{ $subjectLine }}</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;1,400&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         body { margin: 0; padding: 0; background: #F8F5ED; }
         a { color: #7D5F24; }
-        .serif-num { font-variant-numeric: lining-nums; }
         @media (max-width: 620px) {
             .container { width: 100% !important; }
             .px { padding-left: 24px !important; padding-right: 24px !important; }
@@ -42,7 +41,7 @@
                                 <td align="center" style="width:46px;height:46px;border:1px solid #C7A45B;font-family:{!! $serif !!};font-size:20px;color:#C7A45B;letter-spacing:1px;">85</td>
                             </tr></table>
                             <p style="margin:16px 0 4px;font-family:{!! $sans !!};font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#C7A45B;">{{ $event['subtitle'] }}</p>
-                            <p style="margin:0;font-family:{!! $serif !!};font-size:24px;line-height:1.25;color:#F8F5ED;">Dr. Festus Fadeyi <span style="color:#C7A45B;font-style:italic;">at 85</span></p>
+                            <p style="margin:0;font-family:{!! $serif !!};font-size:24px;line-height:1.25;font-weight:300;letter-spacing:-0.5px;color:#F8F5ED;">Dr. Festus Fadeyi <span style="color:#C7A45B;font-weight:700;">at 85</span></p>
                         </td>
                     </tr>
 

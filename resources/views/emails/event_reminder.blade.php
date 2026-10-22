@@ -11,7 +11,7 @@
     @include('emails._qr')
     @include('emails._details', ['showParking' => true, 'showArrival' => true])
 
-    <p style="margin:0 0 8px;font-family:'Cormorant Garamond',Georgia,serif;font-size:22px;color:#0B1730;">Programme</p>
+    <p style="margin:0 0 8px;font-family:'Plus Jakarta Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:22px;color:#0B1730;">Programme</p>
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:0 0 22px;font-size:14px;">
         @foreach ($event['programme'] as $item)
             <tr>
@@ -21,13 +21,13 @@
         @endforeach
     </table>
 
-    <p style="margin:0 0 8px;font-family:'Cormorant Garamond',Georgia,serif;font-size:22px;color:#0B1730;">Directions</p>
+    <p style="margin:0 0 8px;font-family:'Plus Jakarta Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:22px;color:#0B1730;">Directions</p>
     <p style="margin:0 0 22px;">{{ $event['venue']['full'] }} &middot; <a href="{{ $event['venue']['map_link'] }}" style="color:#7D5F24;">Open in Google Maps</a></p>
 
-    <p style="margin:0 0 8px;font-family:'Cormorant Garamond',Georgia,serif;font-size:22px;color:#0B1730;">Ways to give</p>
-    <p style="margin:0 0 16px;">All donations go to {{ $charityLabel }}. You may give online before or during the event, scan the QR code on your table card at the venue.
+    <p style="margin:0 0 8px;font-family:'Plus Jakarta Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:22px;color:#0B1730;">Ways to give</p>
+    <p style="margin:0 0 16px;">All donations go to {{ $charityLabel }}. You may give online, before or during the event.
         @if (\App\Support\EventInfo::bankDetailsConfigured())
-            You may also transfer to {{ $event['charity']['bank']['account_name'] }}, {{ $event['charity']['bank']['bank_name'] }}, {{ $event['charity']['bank']['account_number'] }}.
+            Or transfer to {{ $event['charity']['bank']['account_name'] }}, {{ $event['charity']['bank']['bank_name'] }}, {{ $event['charity']['bank']['account_number'] }}.
         @endif
     </p>
     @include('emails._button', ['href' => $donateUrl, 'label' => 'Donate'])

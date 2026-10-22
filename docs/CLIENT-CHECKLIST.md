@@ -13,7 +13,6 @@ Nothing below has been invented. Until each item is supplied, the website shows 
 | Charity: name, logo, cause, description, how proceeds will be used | Give, emails, receipts | `charity.*` (`CHARITY_NAME` in `.env`); logo → `/images/charity/` |
 | Dedicated bank account: bank, account name, account number | Give, donate page, event reminder | `.env`: `CHARITY_BANK_NAME`, `CHARITY_ACCOUNT_NAME`, `CHARITY_ACCOUNT_NUMBER` |
 | Final programme: timings and details for each segment | Programme, event reminder | `programme` |
-| Speakers and dignitaries: name, title, role, portrait | Speakers | `speakers` (photos → `/images/speakers/`) |
 | Parking information and arrival notes | Venue, event reminder, day-of note | `venue.parking_notes`, `venue.arrival_notes` |
 | Verified venue map pin (optional) | Venue | `.env`: `VENUE_MAP_EMBED_URL`, `VENUE_MAP_LINK` |
 | Archive photographs (more to come, per the client) and, after the event, event photographs | Gallery | `gallery` (files → `/images/gallery/`) |

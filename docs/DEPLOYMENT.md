@@ -100,7 +100,7 @@ See [EMAIL-DNS.md](EMAIL-DNS.md). Set `MAIL_MAILER=smtp` and the provider's cred
 - [ ] Nightly database backup running and a restore tested (`OPERATIONS.md`)
 - [ ] Invitations imported (Admin → Invitations); decide on invite-only mode
 - [ ] Check-in tested on the welcome-desk phones or tablets, over HTTPS, with the camera allowed
-- [ ] Donation QR downloaded (Admin → Donations → *Venue donation QR*) for table cards and the programme
+- [ ] Optional: donation-page QR downloaded (Admin → Donations → *Donation page QR*) for printed materials
 
 ## 7. Updating content later
 

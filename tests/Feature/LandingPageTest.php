@@ -7,11 +7,13 @@ use Tests\TestCase;
 
 class LandingPageTest extends TestCase
 {
-    public function test_all_eleven_sections_render_in_the_specified_order(): void
+    public function test_sections_render_in_order_without_speakers(): void
     {
         $html = $this->get('/')->assertOk()->getContent();
+        $this->assertStringNotContainsString('id="speakers"', $html);
+        $this->assertStringNotContainsString('id="gallery"', $html); // hidden until photographs are added
 
-        $order = ['id="top"', 'id="welcome"', 'id="celebrant"', 'id="book"', 'id="give"', 'id="programme"', 'id="speakers"', 'id="venue"', 'id="rsvp"', 'id="gallery"', 'id="contact"'];
+        $order = ['id="top"', 'id="welcome"', 'id="celebrant"', 'id="book"', 'id="give"', 'id="programme"', 'id="venue"', 'id="rsvp"', 'id="contact"'];
         $positions = array_map(fn ($needle) => strpos($html, $needle), $order);
         $this->assertNotContains(false, $positions, 'A section is missing');
         $sorted = $positions;
@@ -36,13 +38,27 @@ class LandingPageTest extends TestCase
     public function test_missing_client_content_is_shown_as_labelled_placeholders(): void
     {
         $this->get('/')
-            ->assertSee('Welcome message from the host or family')
-            ->assertSee('Author’s name to be confirmed')
-            ->assertSee('Charity to be announced')
-            ->assertSee('Dedicated bank account details')
-            ->assertSee('Online giving opens shortly')
+            ->assertSee('Welcome note from the host or family — coming soon')
+            ->assertSee('Author — coming soon')
+            ->assertSee('Beneficiary charity — coming soon')
+            ->assertSee('Account details — coming soon')
+            ->assertSee('Online giving — coming soon')
             ->assertSee('Cover artwork')
             ->assertDontSee('Lorem');
+    }
+
+    public function test_giving_is_online_and_bank_transfer_only(): void
+    {
+        config(['event.charity.bank' => ['bank_name' => 'Test Bank', 'account_name' => 'Test Foundation', 'account_number' => '0123456789']]);
+
+        $this->get('/')->assertSee('Give online')->assertSee('Bank transfer')->assertSee('0123456789')
+            ->assertDontSee('At the venue')->assertDontSee('Pledge with your RSVP')->assertDontSee('name="pledge_amount"', false);
+    }
+
+    public function test_gallery_appears_once_photographs_are_added(): void
+    {
+        config(['event.gallery' => [['src' => '/images/gallery/a.jpg', 'alt' => 'Archive photo', 'group' => 'archive']]]);
+        $this->get('/')->assertSee('id="gallery"', false)->assertSee('Archive photo');
     }
 
     public function test_footer_has_contact_privacy_and_calendar_links(): void

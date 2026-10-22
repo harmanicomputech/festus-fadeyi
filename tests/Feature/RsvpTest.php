@@ -147,14 +147,21 @@ class RsvpTest extends TestCase
         $this->post('/rsvp', $this->rsvpPayload(['invite_code' => 'WRONG']))->assertSessionHasErrors('invite_code');
 
         $this->get('/i/ABCDEFGH23')->assertRedirect(route('home').'#rsvp');
-        $this->get('/')->assertSee('An invitation for Invited Guest');
+        $this->get('/')->assertSee('For Invited Guest');
         $this->post('/rsvp', $this->rsvpPayload(['email' => 'invited@example.com']))->assertRedirect();
 
         $this->assertSame($inv->id, Rsvp::query()->first()->invitation_id);
     }
 
+    public function test_pledges_are_ignored_while_disabled(): void
+    {
+        $this->post('/rsvp', $this->rsvpPayload(['pledge_amount' => '250,000']))->assertSessionHasNoErrors();
+        $this->assertSame(0, Pledge::query()->count());
+    }
+
     public function test_pledge_is_recorded_separately_and_never_counted_as_received(): void
     {
+        config(['event.donations.pledges_enabled' => true]);
         $this->post('/rsvp', $this->rsvpPayload(['pledge_amount' => '250,000']))->assertSessionHasNoErrors();
         $r = Rsvp::query()->firstOrFail();
         $pledge = Pledge::query()->firstOrFail();
