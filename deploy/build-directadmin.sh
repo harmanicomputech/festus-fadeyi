@@ -13,7 +13,7 @@ trap 'rm -rf "$STAGE"' EXIT
 echo "→ Copying tracked files"
 mkdir -p "$APP"
 (cd "$ROOT" && git ls-files -z --cached --others --exclude-standard) | \
-  (cd "$ROOT" && xargs -0 -I{} cp --parents -p "{}" "$APP/")
+  (cd "$ROOT" && while IFS= read -r -d '' f; do [ -e "$f" ] && cp --parents -p "$f" "$APP/"; done)
 
 echo "→ Removing development-only files"
 rm -rf "$APP/tests" "$APP/phpunit.xml" "$APP/.github" "$APP/deploy" "$APP/.editorconfig" "$APP/.gitattributes" "$APP/CLAUDE.md"
