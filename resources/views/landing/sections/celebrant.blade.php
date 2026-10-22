@@ -21,9 +21,14 @@
 
             <div>
                 <span class="kicker" data-reveal>The Celebrant</span>
-                <h2 class="h2" id="celebrant-title" data-split style="margin-top:1rem">Dr. Festus <em>Fadeyi</em></h2>
+                <h2 class="h2 about__name" id="celebrant-title" data-split>Dr. Festus <em>Fadeyi</em></h2>
                 <p class="about__lead" data-reveal>{{ $lead }}</p>
-                <p class="about__body" data-reveal>{{ $rest }}</p>
+                @if ($rest)
+                    <details class="about__more" data-reveal>
+                        <summary>Read full biography</summary>
+                        <p class="about__body">{{ $rest }}</p>
+                    </details>
+                @endif
             </div>
         </div>
     </div>

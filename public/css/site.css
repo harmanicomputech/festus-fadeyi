@@ -318,7 +318,13 @@ body.nav-open { overflow: hidden; }
 .about__tag { position: absolute; left: -1rem; bottom: 2rem; z-index: 2; background: var(--navy); color: var(--ivory); padding: 1rem 1.3rem; border-radius: 12px; box-shadow: 0 20px 40px -20px rgba(11, 23, 48, .6); }
 .about__tag b { display: block; font-size: 2.4rem; font-weight: 700; line-height: 1; letter-spacing: -.05em; background: var(--gold-gradient); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .about__tag span { font-size: .62rem; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: var(--on-dark-muted); }
-.about__lead { font-size: clamp(1.45rem, 2.6vw, 2.1rem); font-weight: 300; line-height: 1.35; letter-spacing: -.025em; color: var(--navy); margin: 1.4rem 0 1.6rem; }
+.about__name { font-size: clamp(2.4rem, 4.6vw, 3.8rem); margin-top: 1rem; }
+.about__lead { font-size: clamp(1.1rem, 1.6vw, 1.3rem); font-weight: 400; line-height: 1.6; letter-spacing: -.01em; color: var(--charcoal); margin: 1.4rem 0 1.4rem; max-width: 50ch; }
+.about__more summary { display: inline-flex; align-items: center; gap: .6rem; cursor: pointer; list-style: none; font-size: .78rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--gold-ink); }
+.about__more summary::-webkit-details-marker { display: none; }
+.about__more summary::after { content: "+"; display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; border: 1px solid rgba(125, 95, 36, .4); font-size: 1rem; transition: transform .4s var(--ease-out); }
+.about__more[open] summary::after { transform: rotate(45deg); }
+.about__more .about__body { margin-top: 1.2rem; font-size: .98rem; }
 .about__body { color: var(--muted); max-width: 56ch; }
 @media (min-width: 900px) { .about__grid { grid-template-columns: .85fr 1.15fr; } }
 

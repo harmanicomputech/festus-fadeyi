@@ -103,7 +103,7 @@ return [
     // Section 4 — The book
     // ---------------------------------------------------------------
     'book' => [
-        'author' => null,         // CLIENT TO CONFIRM
+        'author' => 'Dr. Festus Fadeyi',
         'synopsis' => null,       // CLIENT TO SUPPLY (two to three lines)
         // Optional: only shown once the client confirms book sales also go to charity.
         'purchase_supports_charity' => false,

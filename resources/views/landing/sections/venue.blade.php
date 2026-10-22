@@ -4,9 +4,9 @@
         <div class="venue__info">
             <span class="kicker" data-reveal>Venue</span>
             <h2 class="h2" id="venue-title" data-split>Sky Restaurant, <em>Eko Hotels</em></h2>
-            <p class="venue__area" data-reveal>{{ $venue['area'] }}</p>
+            <p class="sr-only">{{ $venue['full'] }}</p>
 
-            <ul class="venue__facts" data-reveal>
+            <ul class="venue__facts" data-reveal style="margin-top:2.2rem">
                 <li>
                     <span class="venue__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></span>
                     <div><small>Date</small><span>{{ config('event.date_label') }}</span></div>
@@ -14,10 +14,6 @@
                 <li>
                     <span class="venue__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
                     <div><small>Time</small><span>{{ config('event.time_label') }}</span></div>
-                </li>
-                <li>
-                    <span class="venue__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></span>
-                    <div><small>Address</small><span>{{ $venue['full'] }}</span></div>
                 </li>
                 <li>
                     <span class="venue__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M8 3l4 3 4-3 4 3-3 4v11H7V10L4 6z"/></svg></span>

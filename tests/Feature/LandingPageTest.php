@@ -38,7 +38,7 @@ class LandingPageTest extends TestCase
     public function test_missing_client_content_is_shown_as_labelled_placeholders(): void
     {
         $this->get('/')
-            ->assertSee('Author — coming soon')
+            ->assertSee('By Dr. Festus Fadeyi')->assertDontSee('Synopsis — coming soon')->assertSee('Read full biography')
             ->assertSee('Cover artwork')
             ->assertDontSee('Lorem');
     }

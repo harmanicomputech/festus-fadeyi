@@ -13,12 +13,6 @@
 
             @if ($book['author'])<p class="book__author" data-reveal>By {{ $book['author'] }}</p>@endif
             @if ($book['synopsis'])<p class="book__synopsis" data-reveal>{{ $book['synopsis'] }}</p>@endif
-            @if (! $book['author'] || ! $book['synopsis'])
-                <div class="book__soon" data-reveal>
-                    @unless ($book['author'])<x-placeholder label="Author" />@endunless
-                    @unless ($book['synopsis'])<x-placeholder label="Synopsis" />@endunless
-                </div>
-            @endif
 
             <p class="book__note" data-reveal>Donations at the book presentation go to {{ \App\Support\EventInfo::charityLabel() }}.@if ($book['purchase_supports_charity']) Book sales also support the charity.@endif</p>
             <div data-reveal><a class="btn" href="#give" data-magnetic>Donate <x-arrow /></a></div>
