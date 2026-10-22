@@ -38,21 +38,28 @@ class LandingPageTest extends TestCase
     public function test_missing_client_content_is_shown_as_labelled_placeholders(): void
     {
         $this->get('/')
-            ->assertSee('Welcome note from the host or family — coming soon')
             ->assertSee('Author — coming soon')
-            ->assertSee('Beneficiary charity — coming soon')
-            ->assertSee('Account details — coming soon')
-            ->assertSee('Online giving — coming soon')
             ->assertSee('Cover artwork')
             ->assertDontSee('Lorem');
     }
 
     public function test_giving_is_online_and_bank_transfer_only(): void
     {
-        config(['event.charity.bank' => ['bank_name' => 'Test Bank', 'account_name' => 'Test Foundation', 'account_number' => '0123456789']]);
-
-        $this->get('/')->assertSee('Give online')->assertSee('Bank transfer')->assertSee('0123456789')
+        $this->get('/')->assertSee('Give online')->assertSee('Donate now')->assertSee(route('donate.show'))
+            ->assertSee('Bank transfer')->assertSee('1229809568')->assertSee('Zenith Bank')->assertSee('DR FESTUS FADEYI SYMPOSIUM')
             ->assertDontSee('At the venue')->assertDontSee('Pledge with your RSVP')->assertDontSee('name="pledge_amount"', false);
+    }
+
+    public function test_welcome_note_from_the_host_is_shown(): void
+    {
+        $this->get('/')->assertSee('It is our great honour to welcome you')->assertSee('Caritas Communications Limited');
+    }
+
+    public function test_programme_shows_timings_and_footer_omits_host(): void
+    {
+        $html = $this->get('/')->assertSee('11:00 AM')->assertSee('12:50 PM')->assertDontSee('Timings — coming soon')->assertDontSee('marquee')->getContent();
+        $footer = substr($html, strpos($html, '<footer'));
+        $this->assertStringNotContainsString('Caritas Communications Limited', $footer);
     }
 
     public function test_gallery_appears_once_photographs_are_added(): void

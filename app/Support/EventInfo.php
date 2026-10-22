@@ -70,10 +70,10 @@ class EventInfo
         return filled(config('services.paystack.secret_key')) && filled(config('services.paystack.public_key'));
     }
 
-    /** Donations need a named beneficiary before money can be accepted. */
+    /** Online giving is live once the Paystack keys are configured. */
     public static function donationsReady(): bool
     {
-        return self::charityName() !== null && self::onlinePaymentsConfigured();
+        return self::onlinePaymentsConfigured();
     }
 
     public static function naira(int|float $amountKobo): string

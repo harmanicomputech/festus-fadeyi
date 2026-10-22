@@ -55,7 +55,7 @@ class DonationTest extends TestCase
 
     public function test_donation_flow_is_marked_awaiting_configuration_without_credentials(): void
     {
-        $this->get('/donate')->assertOk()->assertSee('Online giving is awaiting configuration');
+        $this->get('/donate')->assertOk()->assertSee('Online card payment is being connected')->assertSee('1229809568');
         $this->post('/donate', ['amount' => 5000, 'email' => 'a@example.com', 'donor_name' => 'X', 'privacy' => 1])->assertStatus(503);
         $this->assertSame(0, Donation::query()->count());
     }

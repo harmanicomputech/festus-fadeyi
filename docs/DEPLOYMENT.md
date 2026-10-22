@@ -82,7 +82,7 @@ No queue worker is needed: emails send synchronously, and failures are logged ra
 4. **Webhook URL:** set `https://dr.ffat85.com/webhooks/paystack`. The app checks the `x-paystack-signature` HMAC and then re-verifies each transaction through the Verify API. The callback URL is sent automatically with each payment.
 5. Test on staging with Paystack test cards. Confirm that the donation shows as *Verified* in Admin → Donations and that the receipt arrives.
 
-The donate page stays in *awaiting configuration* mode until both Paystack keys **and** `CHARITY_NAME` are set.
+The Donate buttons are always shown. Until both Paystack keys are set, the donate page explains that online payment is being connected and shows the bank transfer details instead.
 
 ## 5. Email
 

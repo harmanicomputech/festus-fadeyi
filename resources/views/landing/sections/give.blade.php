@@ -15,7 +15,7 @@
             @if ($charity['name'])
                 <span>All donations go to <strong>{{ $charity['name'] }}</strong>@if ($charity['cause']) — {{ $charity['cause'] }}@endif</span>
             @else
-                <x-placeholder label="Beneficiary charity" />
+                <span>Every gift supports the charitable cause of the symposium.</span>
             @endif
         </div>
 
@@ -28,11 +28,7 @@
                     <p>Card, bank transfer or USSD via Paystack. Instant email receipt.</p>
                 </div>
                 <div style="position:relative">
-                    @if ($donationsReady)
-                        <a class="btn" href="{{ route('donate.show') }}" data-magnetic>Donate now <x-arrow /></a>
-                    @else
-                        <x-placeholder label="Online giving" />
-                    @endif
+                    <a class="btn" href="{{ route('donate.show') }}" data-magnetic>Donate now <x-arrow /></a>
                 </div>
             </article>
 

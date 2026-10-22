@@ -19,7 +19,7 @@
 
             @if (! $ready)
                 <div class="notice" role="status">
-                    <p><strong>Online giving is awaiting configuration.</strong> The beneficiary charity and the payment gateway are being finalised. Please check back shortly{{ $bankReady ? ', or give by bank transfer using the details below' : '' }}.</p>
+                    <p><strong>Online card payment is being connected.</strong> {{ $bankReady ? 'In the meantime, you can give by bank transfer:' : 'Please check back shortly.' }}</p>
                 </div>
                 @if ($bankReady)
                     @php($bank = config('event.charity.bank'))

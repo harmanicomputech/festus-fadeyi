@@ -57,13 +57,5 @@
         </div>
     </div>
 
-    <div class="marquee" aria-hidden="true">
-        <div class="marquee__track">
-            @for ($i = 0; $i < 2; $i++)
-                <span>Symposium in Honour</span><span>{{ config('event.book_title') }}</span><span>{{ config('event.date_label') }}</span><span>Eko Hotels, Lagos</span><span>Dr. Festus Fadeyi at 85</span>
-            @endfor
-        </div>
-    </div>
-
     <a class="scroll-cue" href="#welcome">Scroll</a>
 </section>

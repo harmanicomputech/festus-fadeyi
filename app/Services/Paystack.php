@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Donation;
+use App\Support\EventInfo;
 use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Support\Facades\Http;
 use RuntimeException;
@@ -37,7 +38,7 @@ class Paystack
                 'donation_id' => $donation->id,
                 'custom_fields' => [
                     ['display_name' => 'Event', 'variable_name' => 'event', 'value' => config('event.short_title')],
-                    ['display_name' => 'Beneficiary', 'variable_name' => 'beneficiary', 'value' => config('event.charity.name')],
+                    ['display_name' => 'Beneficiary', 'variable_name' => 'beneficiary', 'value' => EventInfo::charityLabel()],
                 ],
             ],
         ];

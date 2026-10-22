@@ -80,8 +80,9 @@ return [
     // Section 2 — Welcome note (CLIENT TO SUPPLY)
     // ---------------------------------------------------------------
     'welcome' => [
-        'message' => null,        // Paragraphs separated by blank lines.
-        'signed_by' => null,      // e.g. 'The Fadeyi Family'
+        // DRAFT for the host's approval. Paragraphs separated by blank lines.
+        'message' => 'It is our great honour to welcome you to this symposium celebrating the life and work of Dr. Festus Fadeyi as he marks his 85th birthday. Join us for a morning of reflection, the presentation of Forged in His Fire, and giving in his honour.',
+        'signed_by' => 'Caritas Communications Limited',
     ],
 
     // ---------------------------------------------------------------
@@ -119,9 +120,10 @@ return [
         'description' => null,
         'fund_use' => null,       // How the proceeds will be used.
         'bank' => [
-            'bank_name' => env('CHARITY_BANK_NAME'),
-            'account_name' => env('CHARITY_ACCOUNT_NAME'),
-            'account_number' => env('CHARITY_ACCOUNT_NUMBER'),
+            // Supplied by the client. .env values (if set) take precedence.
+            'bank_name' => env('CHARITY_BANK_NAME') ?: 'Zenith Bank',
+            'account_name' => env('CHARITY_ACCOUNT_NAME') ?: 'DR FESTUS FADEYI SYMPOSIUM',
+            'account_number' => env('CHARITY_ACCOUNT_NUMBER') ?: '1229809568',
         ],
     ],
 
@@ -138,15 +140,16 @@ return [
     // ---------------------------------------------------------------
     // Section 6 — Programme (CLIENT TO SUPPLY times and names)
     // ---------------------------------------------------------------
+    // DRAFT running order within 11:00 AM – 1:00 PM — confirm with the client.
     'programme' => [
-        ['category' => 'Opening and Welcome', 'time' => null, 'detail' => null],
-        ['category' => 'Symposium Proceedings', 'time' => null, 'detail' => null],
-        ['category' => 'Keynote Speakers', 'time' => null, 'detail' => null],
-        ['category' => 'Book Presentation', 'time' => null, 'detail' => null],
-        ['category' => 'Book Reviewers', 'time' => null, 'detail' => null],
-        ['category' => 'Chairman of the Occasion', 'time' => null, 'detail' => null],
-        ['category' => 'Charity Donation Segment', 'time' => null, 'detail' => null],
-        ['category' => 'Closing Proceedings', 'time' => null, 'detail' => null],
+        ['category' => 'Opening and Welcome', 'time' => '11:00 AM', 'detail' => null],
+        ['category' => 'Symposium Proceedings', 'time' => '11:10 AM', 'detail' => null],
+        ['category' => 'Keynote Speakers', 'time' => '11:25 AM', 'detail' => null],
+        ['category' => 'Book Presentation', 'time' => '11:55 AM', 'detail' => null],
+        ['category' => 'Book Reviewers', 'time' => '12:10 PM', 'detail' => null],
+        ['category' => 'Chairman of the Occasion', 'time' => '12:30 PM', 'detail' => null],
+        ['category' => 'Charity Donation Segment', 'time' => '12:40 PM', 'detail' => null],
+        ['category' => 'Closing Proceedings', 'time' => '12:50 PM', 'detail' => null],
     ],
 
     // ---------------------------------------------------------------
