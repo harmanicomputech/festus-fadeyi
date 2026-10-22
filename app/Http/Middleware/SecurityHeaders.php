@@ -34,7 +34,7 @@ class SecurityHeaders
         if ($request->isSecure()) {
             $response->headers->set('Strict-Transport-Security', 'max-age=31536000; includeSubDomains');
         }
-        if ($request->is('admin', 'admin/*', 'rsvp/*', 'donate/status/*', 'qr/*')) {
+        if ($request->is('admin', 'admin/*', 'rsvp/*', 'donate/status/*', 'qr/*', 'install', 'install/*', 'cron/*')) {
             $response->headers->set('X-Robots-Tag', 'noindex, nofollow');
             $response->headers->set('Cache-Control', 'no-store, private');
         }

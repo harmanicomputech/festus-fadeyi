@@ -1,5 +1,12 @@
 # Deployment
 
+> **DirectAdmin / cPanel without shell access?** Use the ready-made package instead of the steps below:
+> run `deploy/build-directadmin.sh` (or use the supplied `ff85-directadmin.zip`) and follow
+> `INSTALL-DIRECTADMIN.txt` inside it. It includes all PHP libraries, a browser-based installer
+> (`/install?token=…`) that creates the database tables and the first admin, an **Admin → Users** page
+> for further accounts, and a cron URL (`/cron/{CRON_TOKEN}`) for scheduled emails, so no
+> `php artisan` commands are needed. Tested on MariaDB 10.11 and PostgreSQL 16.
+
 The app is a standard Laravel 13 application. Recommended production setup:
 
 - **Server:** Ubuntu 24.04 VPS (1–2 vCPU, 2 GB RAM is ample). A region close to Nigeria (e.g. Lagos, Johannesburg or Europe-West) helps latency. Laravel Forge or Ploi can automate everything below.

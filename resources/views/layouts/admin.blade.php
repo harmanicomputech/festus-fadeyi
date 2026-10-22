@@ -20,7 +20,7 @@
                 <a class="topbar__brand" href="{{ auth()->user()->isAdmin() ? route('admin.dashboard') : route('admin.checkin') }}">Dr. FF <span>@ 85</span></a>
                 <nav aria-label="Administration">
                     @if (auth()->user()->isAdmin())
-                        @foreach (['admin.dashboard' => 'Overview', 'admin.guests' => 'Guests', 'admin.invitations' => 'Invitations', 'admin.donations' => 'Donations', 'admin.messages' => 'Messages', 'admin.emails' => 'Emails', 'admin.reports' => 'Reports'] as $route => $label)
+                        @foreach (['admin.dashboard' => 'Overview', 'admin.guests' => 'Guests', 'admin.invitations' => 'Invitations', 'admin.donations' => 'Donations', 'admin.messages' => 'Messages', 'admin.emails' => 'Emails', 'admin.reports' => 'Reports', 'admin.users' => 'Users'] as $route => $label)
                             <a href="{{ route($route) }}" @class(['is-active' => request()->routeIs($route.'*')])>{{ $label }}</a>
                         @endforeach
                     @endif

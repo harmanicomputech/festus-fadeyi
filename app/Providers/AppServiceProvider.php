@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Middleware\TrustProxies;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rules\Password;
@@ -25,6 +26,9 @@ class AppServiceProvider extends ServiceProvider
         }
 
         TrustProxies::at(config('app.trusted_proxies'));
+
+        // Index-safe string length for older MySQL/MariaDB on shared hosting.
+        Schema::defaultStringLength(191);
 
         Model::preventLazyLoading(! $this->app->isProduction());
 

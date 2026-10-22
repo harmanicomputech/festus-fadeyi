@@ -2,8 +2,10 @@
 
 use App\Http\Controllers\Admin;
 use App\Http\Controllers\CalendarController;
+use App\Http\Controllers\CronController;
 use App\Http\Controllers\DonationController;
 use App\Http\Controllers\EmailPreferenceController;
+use App\Http\Controllers\InstallController;
 use App\Http\Controllers\InvitationController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\QrController;
@@ -35,6 +37,17 @@ Route::post('/webhooks/paystack', [DonationController::class, 'webhook'])->name(
 
 Route::get('/email/unsubscribe/{type}/{id}', [EmailPreferenceController::class, 'unsubscribe'])
     ->middleware('signed')->whereNumber('id')->name('email.unsubscribe');
+
+// ---------------------------------------------------------------------
+// Shared hosting without shell access: web installer and cron URL
+// ---------------------------------------------------------------------
+Route::middleware('throttle:lookup')->group(function () {
+    Route::get('/install', [InstallController::class, 'show'])->name('install.show');
+    Route::post('/install/migrate', [InstallController::class, 'migrate'])->name('install.migrate');
+    Route::post('/install/admin', [InstallController::class, 'admin'])->name('install.admin');
+    Route::post('/install/finish', [InstallController::class, 'finish'])->name('install.finish');
+    Route::get('/cron/{token}', [CronController::class, 'run'])->name('cron.run');
+});
 
 // ---------------------------------------------------------------------
 // Administration
@@ -84,5 +97,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::post('/emails/campaign/{campaign}', [Admin\EmailController::class, 'campaign'])->name('emails.campaign');
 
         Route::get('/reports', [Admin\ReportController::class, 'index'])->name('reports');
+
+        Route::get('/users', [Admin\UserController::class, 'index'])->name('users');
+        Route::post('/users', [Admin\UserController::class, 'store'])->name('users.store');
+        Route::put('/users/{user}', [Admin\UserController::class, 'update'])->name('users.update');
+        Route::delete('/users/{user}', [Admin\UserController::class, 'destroy'])->name('users.destroy');
     });
 });

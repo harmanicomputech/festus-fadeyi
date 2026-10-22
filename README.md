@@ -50,6 +50,13 @@ DB_CONNECTION=pgsql DB_DATABASE=ff85_test DB_USERNAME=... DB_PASSWORD=... php ar
 
 A value of `null` in `config/event.php` means *awaiting the client*: the site shows a clearly labelled placeholder instead of invented content.
 
+## Shared hosting (DirectAdmin / cPanel, no SSH)
+
+`deploy/build-directadmin.sh` produces `build/ff85-directadmin.zip`: the app with production
+dependencies, a `public_html/` web root, a pre-filled `.env` with fresh secrets, and
+`INSTALL-DIRECTADMIN.txt`. Setup is done in the browser via the one-time installer at
+`/install?token=<INSTALL_TOKEN>`; reminder emails run from a cron job calling `/cron/<CRON_TOKEN>`.
+
 ## Documentation
 
 - [docs/CLIENT-CHECKLIST.md](docs/CLIENT-CHECKLIST.md): assets, content and credentials still needed from the client

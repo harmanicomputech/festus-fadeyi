@@ -1,0 +1,106 @@
+DR. FESTUS FADEYI @ 85 — INSTALLING ON DIRECTADMIN (no SSH / no PHP commands needed)
+=================================================================================
+
+This package contains two folders:
+
+  ff85-app/      The application (code, settings, libraries). Must NOT be web-accessible.
+  public_html/   The public web files (index.php, css, js, images).
+
+Server requirements: PHP 8.3 or newer, MySQL 5.7+/MariaDB 10.3+, SSL certificate.
+PHP extensions: pdo_mysql, mbstring, openssl, gd, zip, xml, xmlwriter, fileinfo, curl.
+(The installer checks these for you.)
+
+-----------------------------------------------------------------------
+1. PREPARE IN DIRECTADMIN
+-----------------------------------------------------------------------
+a) Domain: add the site's domain (e.g. dr.ffat85.com) under
+   Account Manager > Domain Setup. (See note on subdomains at the end.)
+b) SSL: Account Manager > SSL Certificates > Let's Encrypt for the domain.
+c) PHP version: choose PHP 8.3 (or newer) for the domain
+   (Account Manager > Domain Setup > [domain] > PHP version, or "Select PHP version").
+d) Database: Account Manager > MySQL Management > Create new database.
+   Write down the database name, username and password
+   (DirectAdmin prefixes them with your account name, e.g. user_ff85).
+
+-----------------------------------------------------------------------
+2. UPLOAD
+-----------------------------------------------------------------------
+a) File Manager > domains > [your domain]/
+   You will see the existing "public_html" folder here.
+b) Delete the default files inside public_html (index.html, logo, etc.).
+c) Upload ff85-directadmin.zip into domains/[your domain]/ and Extract it there.
+   Result:
+       domains/[your domain]/ff85-app/
+       domains/[your domain]/public_html/index.php  (+ css, js, images, .htaccess)
+
+-----------------------------------------------------------------------
+3. CONFIGURE  (edit ff85-app/.env in File Manager — enable "show hidden files")
+-----------------------------------------------------------------------
+Required now:
+   APP_URL=https://your-domain
+   DB_DATABASE=, DB_USERNAME=, DB_PASSWORD=   (from step 1d; DB_HOST is usually localhost)
+
+APP_KEY, INSTALL_TOKEN and CRON_TOKEN are already filled with unique random
+values. Keep this .env private and keep a backup copy of it (APP_KEY especially).
+
+Later, when the client supplies them (the site works without them meanwhile):
+   MAIL_*            email platform (Brevo SMTP) — see ff85-app/docs/EMAIL-DNS.md
+   PAYSTACK_*        payment keys + charity subaccount
+   CHARITY_*         charity name and bank account
+Event content (welcome note, author, programme, speakers, parking...) is edited in
+   ff85-app/config/event.php
+Images go in public_html/images/...
+
+-----------------------------------------------------------------------
+4. RUN THE WEB INSTALLER
+-----------------------------------------------------------------------
+Open in your browser:
+
+   https://your-domain/install?token=YOUR_INSTALL_TOKEN
+
+(YOUR_INSTALL_TOKEN is the INSTALL_TOKEN value in ff85-app/.env)
+
+   Step 1  Server check      — fix anything marked "Required"
+   Step 2  Set up database   — creates all tables
+   Step 3  Administrator     — create your admin login
+   Step 4  Finish            — locks the installer
+
+Then sign in at https://your-domain/admin
+Add more admins / welcome-desk staff under Admin > Users.
+
+-----------------------------------------------------------------------
+5. CRON JOB (sends the scheduled reminder emails)
+-----------------------------------------------------------------------
+DirectAdmin > Advanced Features > Cron Jobs > Create, every 5 minutes:
+   Minute */5   Hour *   Day *   Month *   Weekday *
+   Command:
+   /usr/bin/wget -q -O /dev/null "https://your-domain/cron/YOUR_CRON_TOKEN"
+
+(YOUR_CRON_TOKEN is the CRON_TOKEN value in .env. If wget is not allowed, use
+ curl -s "https://your-domain/cron/YOUR_CRON_TOKEN" > /dev/null
+ or a free external service such as cron-job.org calling the same URL.)
+
+-----------------------------------------------------------------------
+6. PAYSTACK WEBHOOK (when payments are configured)
+-----------------------------------------------------------------------
+Paystack Dashboard > Settings > API Keys & Webhooks > Webhook URL:
+   https://your-domain/webhooks/paystack
+
+-----------------------------------------------------------------------
+UPDATING LATER
+-----------------------------------------------------------------------
+Upload the new package, but KEEP your existing ff85-app/.env, ff85-app/config/event.php
+(if you edited it) and your images. If the update notes say the database changed:
+delete ff85-app/storage/app/installed.lock and open /install?token=... again —
+it only applies the new changes, then click Finish.
+
+-----------------------------------------------------------------------
+NOTES
+-----------------------------------------------------------------------
+* Subdomain set up as a folder (e.g. domains/ffat85.com/public_html/dr):
+  put the CONTENTS of the package's public_html into public_html/dr, and the
+  ff85-app folder in domains/ffat85.com/ — index.php finds it automatically.
+* "Dr.FFat85.com" is the subdomain "dr" of ffat85.com (domains are not case-sensitive).
+* Blank page or "500 error": check ff85-app/storage/logs/laravel.log in File Manager.
+  Make sure ff85-app/storage and ff85-app/bootstrap/cache are writable (755 folders).
+* Full documentation: ff85-app/README.md and ff85-app/docs/.

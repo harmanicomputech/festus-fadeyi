@@ -70,6 +70,13 @@ return [
     // Proxies/CDN in front of the app (comma-separated IPs/CIDRs, or *).
     'trusted_proxies' => env('TRUSTED_PROXIES', '127.0.0.1'),
 
+    // Shared hosting without shell access (DirectAdmin/cPanel):
+    // INSTALL_TOKEN unlocks the one-time web installer at /install?token=...
+    // CRON_TOKEN authorises the scheduled-email URL /cron/{token}.
+    // Leave either empty to disable that endpoint.
+    'install_token' => env('INSTALL_TOKEN'),
+    'cron_token' => env('CRON_TOKEN'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Locale Configuration
