@@ -20,7 +20,6 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->redirectUsersTo(fn () => route('admin.dashboard'));
         // Paystack posts server-to-server; authenticity is checked by HMAC signature.
         $middleware->validateCsrfTokens(except: ['webhooks/paystack']);
-        $middleware->trustProxies(at: env('TRUSTED_PROXIES', '127.0.0.1'));
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->shouldRenderJsonWhen(

@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Services\RsvpService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
+use Illuminate\Routing\Middleware\ThrottleRequests;
 use Illuminate\Support\Carbon;
 
 abstract class TestCase extends BaseTestCase
@@ -18,7 +19,7 @@ abstract class TestCase extends BaseTestCase
         parent::setUp();
         // A fixed moment before the RSVP deadline (Lagos time).
         $this->travelTo(Carbon::parse('2026-11-01 12:00:00', 'Africa/Lagos'));
-        $this->withoutMiddleware(\Illuminate\Routing\Middleware\ThrottleRequests::class);
+        $this->withoutMiddleware(ThrottleRequests::class);
     }
 
     protected function rsvpPayload(array $overrides = []): array

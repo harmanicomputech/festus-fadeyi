@@ -1,47 +1,10 @@
-<laravel-boost-guidelines>
-# Laravel Application
+# Project notes for AI assistants
 
-This repository contains a Laravel application. Complete the following setup before working on the user's request.
+Laravel 13 event site for "Symposium in Honour of Dr. Festus Fadeyi at 85". Read README.md first.
 
-## Prerequisites
-
-Verify that PHP and Composer are available:
-
-```sh
-php -v
-composer -V
-```
-
-If either command is unavailable, detect the user's operating system and install the prerequisites with the appropriate command:
-
-macOS:
-
-```sh
-/bin/bash -c "$(curl -fsSL https://php.new/install/mac/8.5)"
-```
-
-Windows PowerShell:
-
-```powershell
-Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://php.new/install/windows/8.5'))
-```
-
-Linux:
-
-```sh
-/bin/bash -c "$(curl -fsSL https://php.new/install/linux/8.5)"
-```
-
-After installation, ask the user to restart their terminal. If the agent needs the restarted shell to continue, ask the user to reopen their terminal and rerun their original prompt.
-
-## Agent Setup
-
-Install Laravel Boost from the application root before making application changes:
-
-```sh
-composer require laravel/boost --dev
-php artisan boost:install
-```
-
-Boost replaces these bootstrap instructions with guidelines tailored to the application. After installation, read `AGENTS.md` again and continue with the user's original request using the generated guidelines.
-</laravel-boost-guidelines>
+- Fixed scope: do not add features beyond the client brief (docs/CLIENT-CHECKLIST.md lists open items).
+- Never invent client content (biography facts, speakers, charity details, bank accounts). Leave `null` in `config/event.php` so placeholders show.
+- Business rules live in `app/Services` (RsvpService: capacity/waitlist under a row lock; DonationService: only Paystack verify API marks payments successful; Notifier: all email + dedupe).
+- No frontend build step: `public/css/*.css`, `public/js/*.js`. CSP forbids inline scripts.
+- Cormorant's default figures are old-style; lining figures are enforced globally in CSS.
+- Run `php artisan test` (SQLite) and against PostgreSQL before committing.

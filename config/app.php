@@ -67,6 +67,9 @@ return [
 
     'timezone' => env('APP_TIMEZONE', 'Africa/Lagos'),
 
+    // Proxies/CDN in front of the app (comma-separated IPs/CIDRs, or *).
+    'trusted_proxies' => env('TRUSTED_PROXIES', '127.0.0.1'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Locale Configuration

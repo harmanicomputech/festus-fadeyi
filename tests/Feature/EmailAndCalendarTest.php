@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Mail\BrandedMail;
 use App\Models\EmailLog;
 use App\Models\Invitation;
 use App\Services\Campaigns;
@@ -19,7 +20,7 @@ class EmailAndCalendarTest extends TestCase
         Mail::fake();
         $this->makeRsvp(['email' => 'brand@example.com']);
 
-        Mail::assertSent(\App\Mail\BrandedMail::class, function ($mail) {
+        Mail::assertSent(BrandedMail::class, function ($mail) {
             $env = $mail->envelope();
 
             return $mail->hasTo('brand@example.com')

@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Donation;
 use App\Models\EmailLog;
 use App\Models\Invitation;
 use App\Models\Pledge;
@@ -160,7 +161,7 @@ class RsvpTest extends TestCase
         $this->assertSame($r->id, $pledge->rsvp_id);
         $this->assertSame(25000000, $pledge->amount_kobo);
         $this->assertSame('open', $pledge->status);
-        $this->assertSame(0, \App\Models\Donation::query()->count());
+        $this->assertSame(0, Donation::query()->count());
     }
 
     public function test_manage_page_does_not_leak_other_guests(): void

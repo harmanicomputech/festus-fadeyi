@@ -12,8 +12,11 @@ use Illuminate\Support\Str;
 class Rsvp extends Model
 {
     public const STATUS_CONFIRMED = 'confirmed';
+
     public const STATUS_WAITLISTED = 'waitlisted';
+
     public const STATUS_MAYBE = 'maybe';
+
     public const STATUS_DECLINED = 'declined';
 
     public const STATUS_LABELS = [

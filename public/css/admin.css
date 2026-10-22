@@ -4,12 +4,13 @@
   --forest: #163B35; --charcoal: #202531; --muted: #5B6072; --danger: #9B2C2C; --success: #1F5B4A; --warn: #8A5A00;
   --serif: "Cormorant Garamond", Georgia, serif; --sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
 }
-*, *::before, *::after { box-sizing: border-box; font-variant-numeric: lining-nums; }
+*, *::before, *::after { box-sizing: border-box; font-variant-numeric: lining-nums !important; }
 body { margin: 0; background: var(--ivory); color: var(--charcoal); font: 400 14px/1.55 var(--sans); }
 a { color: var(--gold-ink); }
 h1, h2, h3 { font-family: var(--serif); font-weight: 500; color: var(--navy); margin: 0; line-height: 1.15; }
 h1 { font-size: 2.1rem; } h2 { font-size: 1.5rem; } h3 { font-size: 1.2rem; }
 :focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+[hidden] { display: none !important; }
 
 .topbar { background: var(--navy); color: var(--ivory); border-bottom: 2px solid var(--gold); position: sticky; top: 0; z-index: 10; }
 .topbar__inner { max-width: 1320px; margin: 0 auto; padding: 0 20px; display: flex; align-items: center; gap: 24px; min-height: 60px; flex-wrap: wrap; }

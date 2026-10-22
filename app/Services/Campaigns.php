@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\EmailLog;
 use App\Models\Invitation;
 use App\Models\Rsvp;
 use App\Support\EventInfo;
@@ -63,7 +64,7 @@ class Campaigns
         $result = ['sent' => 0, 'skipped' => 0, 'failed' => 0];
 
         foreach ($this->recipients($campaign) as $recipient) {
-            $alreadyDone = \App\Models\EmailLog::query()
+            $alreadyDone = EmailLog::query()
                 ->where('dedupe_key', $this->dedupeKey($campaign, $recipient))
                 ->whereIn('status', ['sent', 'logged'])->exists();
             if ($alreadyDone) {

@@ -2,9 +2,11 @@
 
 namespace Tests\Feature;
 
+use App\Models\Donation;
 use App\Models\Invitation;
 use App\Models\Rsvp;
-use App\Models\User;
+use App\Models\Setting;
+use App\Services\Notifier;
 use Tests\TestCase;
 
 class AdminTest extends TestCase
@@ -91,7 +93,7 @@ class AdminTest extends TestCase
         $this->assertDatabaseCount('email_logs', 3);
 
         $this->actingAs($admin)->post('/admin/invitations/settings', ['invite_only' => 1]);
-        $this->assertTrue(\App\Models\Setting::inviteOnly());
+        $this->assertTrue(Setting::inviteOnly());
     }
 
     public function test_admin_status_override_and_messages_page(): void
@@ -109,9 +111,25 @@ class AdminTest extends TestCase
     public function test_email_previews_render_for_all_seven_templates(): void
     {
         $admin = $this->admin();
-        foreach (array_keys(\App\Services\Notifier::TEMPLATES) as $t) {
+        foreach (array_keys(Notifier::TEMPLATES) as $t) {
             $this->actingAs($admin)->get('/admin/emails/preview/'.$t)->assertOk()->assertSee('Dr. Festus Fadeyi');
         }
         $this->actingAs($admin)->get('/admin/emails')->assertOk();
+    }
+
+    public function test_every_admin_page_renders_with_data(): void
+    {
+        config(['event.rsvp.capacity' => 1]);
+        $this->makeRsvp(['message' => 'Congratulations', 'pledge_amount' => '20000']);
+        $this->makeRsvp(['attendance' => 'yes']);
+        Invitation::query()->create(['code' => 'RENDERTEST', 'name' => 'Render Invitee', 'email' => 'render@example.com']);
+        Donation::query()->create(['reference' => 'X1', 'amount_kobo' => 100000, 'method' => 'bank_transfer', 'status' => 'success', 'paid_at' => now(), 'donor_name' => 'Offline Donor', 'message' => 'Well done']);
+        $admin = $this->admin();
+
+        foreach (['/admin', '/admin/guests', '/admin/guests?status=pending', '/admin/guests?status=checked_in', '/admin/invitations', '/admin/donations', '/admin/donations?status=all&from=2026-01-01&to=2026-12-31', '/admin/messages', '/admin/emails', '/admin/reports', '/admin/check-in'] as $url) {
+            $this->actingAs($admin)->get($url)->assertOk();
+        }
+        $this->actingAs($admin)->get('/admin/donations/venue-qr.png')->assertOk()->assertHeader('Content-Type', 'image/png');
+        $this->actingAs($admin)->get('/admin/messages')->assertSee('Congratulations')->assertSee('Well done');
     }
 }

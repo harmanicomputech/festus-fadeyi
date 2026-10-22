@@ -2,8 +2,12 @@
     "$schema": "https://getcomposer.org/schema.json",
     "name": "laravel/laravel",
     "type": "project",
-    "description": "The skeleton application for the Laravel framework.",
-    "keywords": ["laravel", "framework"],
+    "description": "Official website, RSVP, donations and check-in for the Symposium in Honour of Dr. Festus Fadeyi at 85 & Book Presentation of Forged in His Fire.",
+    "keywords": [
+        "laravel",
+        "event",
+        "rsvp"
+    ],
     "license": "MIT",
     "require": {
         "php": "^8.3",
@@ -38,13 +42,11 @@
             "composer install",
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
             "@php artisan key:generate",
-            "@php artisan migrate --force",
-            "npm install --ignore-scripts",
-            "npm run build"
+            "@php artisan migrate --force"
         ],
         "dev": [
             "Composer\\Config::disableProcessTimeout",
-            "@php artisan dev"
+            "@php artisan serve"
         ],
         "test": [
             "@php artisan config:clear --ansi @no_additional_args",

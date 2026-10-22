@@ -135,7 +135,7 @@ class EventInfo
             'CALSCALE:GREGORIAN',
             'METHOD:PUBLISH',
             'BEGIN:VEVENT',
-            'UID:ff85-symposium-20261210@'.(parse_url(config('app.url'), PHP_URL_HOST) ?: 'drffat85.com'),
+            'UID:ff85-symposium-20261210@'.(parse_url(config('app.url'), PHP_URL_HOST) ?: 'localhost'),
             'DTSTAMP:'.now()->utc()->format($fmt),
             'DTSTART:'.self::startsAt()->utc()->format($fmt),
             'DTEND:'.self::endsAt()->utc()->format($fmt),

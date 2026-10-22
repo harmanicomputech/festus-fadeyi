@@ -64,6 +64,7 @@ h1, h2, h3, h4 { font-family: var(--serif); font-weight: 500; line-height: 1.08;
 *, *::before, *::after { font-variant-numeric: lining-nums !important; }
 ::selection { background: var(--gold); color: var(--navy); }
 :focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+[hidden] { display: none !important; }
 
 .skip-link {
   position: absolute; left: 1rem; top: -100px; z-index: 100;
@@ -274,6 +275,7 @@ body.nav-open { overflow: hidden; }
 .hero__corner--br { bottom: -1px; right: -1px; transform: scale(-1); }
 
 .hero__grid { position: relative; z-index: 1; display: grid; gap: clamp(2.5rem, 6vw, 4.5rem); align-items: center; }
+.hero .container { padding-inline: max(var(--gutter), 1.9rem); }
 .hero__copy { display: grid; gap: 1.35rem; justify-items: start; }
 .hero__title { display: grid; gap: .35rem; }
 .hero__title .pre { font: italic 400 clamp(1.35rem, 2.6vw, 1.9rem)/1.2 var(--serif); color: var(--on-dark-muted); }
