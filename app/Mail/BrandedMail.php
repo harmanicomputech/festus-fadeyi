@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Support\HtmlToText;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Attachment;
@@ -33,11 +34,10 @@ class BrandedMail extends Mailable
 
     public function content(): Content
     {
-        return new Content(
-            html: 'emails.'.$this->template,
-            text: 'emails.text',
-            with: $this->data + ['subjectLine' => $this->subjectLine, 'template' => $this->template],
-        );
+        $with = $this->data + ['subjectLine' => $this->subjectLine, 'template' => $this->template];
+        $with['plainText'] = HtmlToText::convert(view('emails.'.$this->template, $with)->render());
+
+        return new Content(html: 'emails.'.$this->template, text: 'emails.text', with: $with);
     }
 
     public function attachments(): array

@@ -155,13 +155,15 @@ class EventInfo
         // RFC 5545: fold lines longer than 75 octets.
         $folded = array_map(function (string $line) {
             $out = '';
-            while (strlen($line) > 75) {
-                $cut = 75;
+            $limit = 75; // continuation lines start with a space, so they carry 74 octets
+            while (strlen($line) > $limit) {
+                $cut = $limit;
                 while ($cut > 0 && (ord($line[$cut]) & 0xC0) === 0x80) {
                     $cut--; // don't split a UTF-8 sequence
                 }
                 $out .= substr($line, 0, $cut)."\r\n ";
                 $line = substr($line, $cut);
+                $limit = 74;
             }
 
             return $out.$line;

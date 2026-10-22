@@ -268,7 +268,7 @@ class RsvpService
 
     private function syncPledge(Rsvp $rsvp, mixed $amountNaira): void
     {
-        $amountNaira = $amountNaira === null || $amountNaira === '' ? null : (int) $amountNaira;
+        $amountNaira = (int) preg_replace('/[^0-9]/', '', (string) $amountNaira) ?: null;
         $pledge = Pledge::query()->where('rsvp_id', $rsvp->id)->where('status', 'open')->first();
 
         if (! $amountNaira) {

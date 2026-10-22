@@ -72,16 +72,16 @@ class Notifier
         ], null, ['rsvp_id' => $rsvp->id], $attachments);
     }
 
-    public function donationReceipt(Donation $donation): bool
+    public function donationReceipt(Donation $donation, bool $resend = false): bool
     {
-        if (! $donation->email || $donation->status !== 'success' || $donation->receipt_sent_at) {
+        if (! $donation->email || $donation->status !== 'success' || ($donation->receipt_sent_at && ! $resend)) {
             return false;
         }
 
         $ok = $this->deliver('donation_receipt', $donation->email,
             'Thank you for your gift — receipt '.$donation->reference,
             ['donation' => $donation, 'name' => $donation->is_anonymous ? null : $donation->donor_name],
-            'donation_receipt:'.$donation->id, ['donation_id' => $donation->id]);
+            $resend ? null : 'donation_receipt:'.$donation->id, ['donation_id' => $donation->id]);
 
         if ($ok) {
             $donation->forceFill(['receipt_sent_at' => now()])->save();
